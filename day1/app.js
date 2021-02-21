@@ -26,28 +26,55 @@ console.log(
     { name: "ahmed", age: "26" }
   )
 ); //true
-console.log(compare2Objs({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true })); // true
-console.log(compare2Objs({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true })); // false
-console.log(compare2Objs({ hair: 'long', beard: true }, { age: 26, hair: 'long', beard: true })); // false
+console.log(
+  compare2Objs(
+    { age: 25, hair: "long", beard: true },
+    { hair: "long", beard: true }
+  )
+); // true
+console.log(
+  compare2Objs(
+    { hair: "long", beard: true },
+    { age: 25, hair: "long", beard: true }
+  )
+); // false
+console.log(
+  compare2Objs(
+    { hair: "long", beard: true },
+    { age: 26, hair: "long", beard: true }
+  )
+); // false
 /******************************************************************************************/
-// No2 
+// No2
 // Write a JavaScript program to copy a string to the clipboard.
 
-var copyTextareaBtn = document.querySelector('#copyBtn');
+var copyTextareaBtn = document.querySelector("#copyBtn");
 
-copyTextareaBtn.addEventListener('click', function(event) {
-  const virtualTextArea =  document.createElement("textarea")
-  const text = document.getElementById("textCodied").textContent
-  virtualTextArea.textContent = text
+copyTextareaBtn.addEventListener("click", function (event) {
+  const virtualTextArea = document.createElement("textarea");
+  const text = document.getElementById("textCodied").textContent;
+  virtualTextArea.textContent = text;
   document.body.append(virtualTextArea);
-  virtualTextArea.style.position = "fixed"
-  virtualTextArea.style.left = "-10000000px"
+  virtualTextArea.style.position = "fixed";
+  virtualTextArea.style.left = "-10000000px";
   virtualTextArea.select();
   virtualTextArea.focus();
-    const successful = document.execCommand('copy');
-    if(successful){
-    console.log("get copied")
+  const successful = document.execCommand("copy");
+  if (successful) {
+    console.log("get copied");
     document.body.removeChild(virtualTextArea);
-    }
-    
+  }
 });
+/******************************************************************************************/
+// No3
+// Write a JavaScript program to converts a comma-separated values (CSV) string to a 2D array.
+function csv_to_array(data, separator = ",", withHeading = false) {
+    return data.slice(withHeading?  data.indexOf("\n")+1 :0).split("\n").map((row) => {
+      return row.split(separator);
+    });
+
+}
+
+console.log(csv_to_array("a,b\nc,d"));
+console.log(csv_to_array("a;b\nc;d", ";"));
+console.log(csv_to_array("head1,head2\na,b\nc,d", ",", true));
