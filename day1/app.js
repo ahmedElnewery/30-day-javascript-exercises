@@ -86,20 +86,51 @@ function csv_to_array(data, separator = ",", withHeading = false) {
 // Write a JavaScript program to convert a comma-separated values (CSV) string to a 2D array of objects. The first row of the string is used as the title row.
 
 function csv_to_json(data, separator = ",") {
-  
   const titles = data.slice(0, data.indexOf("\n")).split(separator);
   return data
     .slice(data.indexOf("\n") + 1)
     .split("\n")
     .map((v) => {
       const values = v.split(separator);
-      return titles.reduce((obj,title,index)=>{
-         obj[title]= values[index]
-         return obj 
-      },{})
+      return titles.reduce((obj, title, index) => {
+        obj[title] = values[index];
+        return obj;
+      }, {});
     });
 }
 
 console.log(csv_to_json("col1,col2\na,b\nc,d")); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];
 console.log(csv_to_json("col1;col2\na;b\nc;d\ne;f", ";")); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];
+/************************************************************/
+// No5
+// Convert an array of objects to a comma-separated values string that contains only the columns specified
 
+// es6
+function json_to_csv(arr, cols) {
+
+  const header = cols[0].split(",");
+  const values = arr.reduce((array, curr, i) => {
+    const value = header.reduce((data, header) => {
+      let element = curr[header];
+      element ? (element = element) : (element = " ");
+      data.push(element);
+      return data;
+    }, []);
+    array.push(value);
+    return array;
+  }, []);
+
+  return [header, ...values].join("\n");
+}
+
+console.log(
+  json_to_csv(
+    [
+      { col1: "a", col2: "b" },
+      { col1: "c", col2: "d" },
+      { col1: "x" },
+      { col2: "y" },
+    ],
+    ["col1,col2"]
+  )
+);
