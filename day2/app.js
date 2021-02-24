@@ -29,3 +29,10 @@ const dog = {
 console.log(findKey(data, "level3"));
 console.log(findKey(dog, 'message'));
 /***********************************************************************/
+// No.7 Write a JavaScript program to converts a specified number to an array of digits.
+function numToArr(num){
+
+ return [...`${num}`].map(n=> parseInt(n))
+}
+console.log(numToArr(5554495))
+/********************************************** */
